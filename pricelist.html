@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Pricelist - Vantage Studio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #fbbf24;
+            --dark: #020617;
+            --card: #0f172a;
+            --border: #1e293b;
+            --text-gray: #94a3b8;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; margin: 0; scroll-behavior: smooth; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        header { text-align: center; padding: 40px 0; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .btn-back { color: white; text-decoration: none; border: 1px solid var(--border); padding: 8px 20px; border-radius: 30px; font-size: 0.8rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-back:hover { background: var(--gold); color: black; border-color: var(--gold); }
+
+        .category-nav {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
+            position: sticky; top: 10px; z-index: 100; background: rgba(2, 6, 23, 0.9); padding: 10px;
+            backdrop-filter: blur(10px); border-radius: 50px; border: 1px solid var(--border);
+        }
+        .nav-item {
+            background: var(--card); border: 1px solid var(--border); color: white; padding: 10px 20px;
+            border-radius: 50px; cursor: pointer; font-size: 0.8rem; transition: 0.3s; white-space: nowrap;
+        }
+        .nav-item.active { background: var(--gold); color: black; border-color: var(--gold); font-weight: 700; }
+
+        .price-section { display: none; animation: fadeIn 0.4s ease; }
+        .price-section.active { display: block; }
+
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; transition: 0.3s; height: 100%; box-sizing: border-box; }
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .card h3 { margin: 0; font-size: 1.1rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .price { color: var(--gold); font-size: 1.35rem; font-weight: 700; margin: 12px 0; display: block; }
+        .note { color: #ef4444; font-size: 0.75rem; font-style: italic; margin-top: -5px; margin-bottom: 15px; display: block; }
+        
+        .card ul { padding: 0; margin: 0 0 25px 0; flex-grow: 1; }
+        .card li { list-style: none; color: var(--text-gray); font-size: 0.85rem; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 6px; }
+        .card li span { display: flex; align-items: center; }
+        .card li i { color: var(--gold); margin-right: 12px; font-size: 0.75rem; width: 15px; text-align: center; }
+        .card li .item-price { color: var(--gold); font-weight: 600; font-size: 0.9rem; }
+
+        .btn-wa { background: var(--gold); color: black; text-decoration: none; text-align: center; padding: 12px; border-radius: 12px; font-weight: 700; transition: 0.3s; font-size: 0.9rem; margin-top: auto; }
+        .btn-wa:hover { background: white; }
+
+        .contact-message {
+            text-align: center; margin-top: 60px; padding: 30px;
+            background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.5)); border-radius: 20px;
+        }
+        .contact-message p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; max-width: 700px; margin: 0 auto; }
+        .contact-message strong { color: var(--gold); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> KEMBALI KE HOME</a>
+        <h1 style="margin-top: 20px; font-size: 2rem; letter-spacing: 2px;">VANTAGE PRICE LIST</h1>
+    </header>
+
+    <div class="category-nav">
+        <div class="nav-item active" onclick="showCategory('wisuda', this)">Paket Wisuda</div>
+        <div class="nav-item" onclick="showCategory('event', this)">Wedding & Event</div>
+        <div class="nav-item" onclick="showCategory('file-only', this)">Paket File Only</div>
+        <div class="nav-item" onclick="showCategory('design-services', this)">Jasa Desain & UMKM</div>
+    </div>
+
+    <div id="wisuda" class="price-section active">
+        <div class="price-grid">
+            <div class="card">
+                <h3>Foto Wisuda</h3>
+                <span class="price">Rp 350.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-clock"></i> Sesi 1 Jam</span></li>
+                    <li><span><i class="fas fa-file-alt"></i> File Mentah (All Files)</span></li>
+                    <li><span><i class="fas fa-magic"></i> 10 Foto Edited</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Foto</a>
+            </div>
+            
+            <div class="card" style="border: 2px solid var(--gold);">
+                <h3>Video Wisuda Cinematic</h3>
+                <span class="price">Rp 400.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-video"></i> Video Cinematic 1 Menit</span></li>
+                    <li><span><i class="fas fa-folder-open"></i> File Mentah & Edit</span></li>
+                    <li><span><i class="fas fa-sync"></i> Gratis Revisi 1x</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Video</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="event" class="price-section">
+        <div class="price-grid">
+            <div class="card">
+                <h3>Foto Wedding (Per Jam)</h3>
+                <span class="price">Rp 350.000 <small>/Jam</small></span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-clock"></i> Sesi 1 Jam</span></li>
+                    <li><span><i class="fas fa-file-import"></i> File Mentah (All Files)</span></li>
+                    <li><span><i class="fas fa-magic"></i> 10 Foto Edited</span></li>
+                    <li><span><i class="fas fa-calendar-check"></i> Akad / Nikahan / Lamaran</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Sekarang</a>
+            </div>
+
+            <div class="card" style="border: 2px solid var(--gold);">
+                <h3>Video Cinematic (1-2 Menit)</h3>
+                <span class="price">Rp 850.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-video"></i> Video Footage</span></li>
+                    <li><span><i class="fas fa-film"></i> Edit Cinematic Landscape & Potrait</span></li>
+                    <li><span><i class="fas fa-gift"></i> Bonus: Video Reels/Story siap up Hari H</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Video</a>
+            </div>
+
+            <div class="card">
+                <h3>Paket 1 Rol</h3>
+                <span class="price">Rp 850.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-camera"></i> 1 Rol Isi 40 Foto</span></li>
+                    <li><span><i class="fas fa-print"></i> Cetak Foto + Album</span></li>
+                    <li><span><i class="fas fa-file-import"></i> File Mentah + Edit</span></li>
+                    <li><span><i class="fas fa-star"></i> Tasmiyah / Akad / Ulang Tahun</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan 1 Rol</a>
+            </div>
+
+            <div class="card" style="border: 2px solid var(--gold);">
+                <h3>Paket 2 Rol</h3>
+                <span class="price">Rp 1.700.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-camera"></i> 2 Rol Isi 80 Foto</span></li>
+                    <li><span><i class="fas fa-print"></i> Cetak Foto + Album</span></li>
+                    <li><span><i class="fas fa-image"></i> Bingkai Foto Premium</span></li>
+                    <li><span><i class="fas fa-file-import"></i> File Mentah + Edit</span></li>
+                    <li><span><i class="fas fa-heart"></i> Pernikahan (Akad + Resepsi)</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan 2 Rol</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="file-only" class="price-section">
+        <div class="price-grid">
+            <div class="card">
+                <h3>Foto Studio</h3>
+                <span class="price">Rp 300.000 <small>/Jam</small></span>
+                <ul>
+                    <li><span><i class="fas fa-folder"></i> File Mentah + 10 Edit</span></li>
+                    <li><span><i class="fas fa-print"></i> Cetak Foto 3 Lembar</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Booking Studio</a>
+            </div>
+
+            <div class="card">
+                <h3>Foto Ulang Tahun</h3>
+                <span class="price">Rp 550.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-clock"></i> Dokumentasi Sampai Selesai</span></li>
+                    <li><span><i class="fas fa-folder"></i> File Mentah + 10 Edit</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Booking Ultah</a>
+            </div>
+
+            <div class="card" style="border: 2px solid var(--gold);">
+                <h3>Foto Model & Cinematic</h3>
+                <span class="price">Rp 850.000</span>
+                <span class="note">*Belum termasuk biaya transport</span>
+                <ul>
+                    <li><span><i class="fas fa-video"></i> Video Cinematic 30 Detik</span></li>
+                    <li><span><i class="fas fa-file-import"></i> File Mentah & Edit</span></li>
+                    <li><span><i class="fas fa-camera-retro"></i> Sesi Foto Model Khusus</span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Booking Model</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="design-services" class="price-section">
+        <div class="price-grid">
+            
+            <div class="card">
+                <h3>Paket Desain Satuan</h3>
+                <span class="price">Mulai Rp 5.000</span>
+                <span class="note">*File HD dikirim via JPG, PNG, atau PDF</span>
+                <ul>
+                    <li><span><i class="fas fa-image"></i> Feed Instagram (1 Slide)</span> <span class="item-price">Rp 15.000</span></li>
+                    <li><span><i class="fas fa-history"></i> Story Instagram</span> <span class="item-price">Rp 10.000</span></li>
+                    <li><span><i class="fas fa-chalkboard"></i> Poster Simple</span> <span class="item-price">Rp 25.000</span></li>
+                    <li><span><i class="fas fa-scroll"></i> Brosur / Flyer A5</span> <span class="item-price">Rp 35.000</span></li>
+                    <li><span><i class="fas fa-ad"></i> Banner / Spanduk</span> <span class="item-price">Rp 40.000</span></li>
+                    <li><span><i class="fas fa-utensils"></i> Desain Menu UMKM</span> <span class="item-price">Rp 30.000</span></li>
+                    <li><span><i class="fas fa-pen-nib"></i> Logo Simple</span> <span class="item-price">Rp 50.000</span></li>
+                    <li><span><i class="fas fa-eraser"></i> Hapus Background</span> <span class="item-price">Rp 5.000<small>/ft</small></span></li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Desain</a>
+            </div>
+
+            <div class="card" style="border: 2px solid var(--gold);">
+                <h3>Paket Konten UMKM</h3>
+                <span class="price">Hemat & Praktis</span>
+                <span class="note">*Sangat cocok untuk manajemen feed media sosial</span>
+                <ul>
+                    <li>
+                        <span><i class="fas fa-box"></i> Bundling Media Sosial Basic</span>
+                        <span class="item-price">Rp 75.000</span>
+                    </li>
+                    <li style="border:none; padding-bottom:0; font-size:0.8rem; margin-top:-5px; margin-bottom:15px; padding-left:27px;">
+                        Detail: 3 Desain Feed + 3 Desain Story
+                    </li>
+                    
+                    <li>
+                        <span><i class="fas fa-boxes"></i> Bundling Media Sosial Pro</span>
+                        <span class="item-price">Rp 140.000</span>
+                    </li>
+                    <li style="border:none; padding-bottom:0; font-size:0.8rem; margin-top:-5px; margin-bottom:15px; padding-left:27px;">
+                        Detail: 6 Desain Feed + 6 Desain Story
+                    </li>
+
+                    <li>
+                        <span><i class="fas fa-store"></i> Paket Promo Buka Toko</span>
+                        <span class="item-price">Rp 150.000</span>
+                    </li>
+                    <li style="border:none; padding-bottom:0; font-size:0.8rem; margin-top:-5px; padding-left:27px;">
+                        Detail: Logo + Banner + Desain Brosur
+                    </li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Paket Konten</a>
+            </div>
+
+            <div class="card">
+                <h3>Branding & Kemasan</h3>
+                <span class="price">Eksklusif UMKM</span>
+                <span class="note">*Menaikkan nilai jual produk toko Anda</span>
+                <ul>
+                    <li>
+                        <span><i class="fas fa-palette"></i> Paket Kebutuhan Branding</span>
+                        <span class="item-price">Rp 200.000</span>
+                    </li>
+                    <li style="border:none; padding-bottom:0; font-size:0.8rem; margin-top:-5px; margin-bottom:15px; padding-left:27px;">
+                        Detail: Logo + Palet Warna Brand + Penyelarasan Font
+                    </li>
+
+                    <li>
+                        <span><i class="fas fa-cubes"></i> Desain Kemasan Produk</span>
+                        <span class="item-price">Rp 80.000</span>
+                    </li>
+                    <li style="border:none; padding-bottom:0; font-size:0.8rem; margin-top:-5px; margin-bottom:15px; padding-left:27px;">
+                        Detail: Desain Mockup / Pola Lipatan Box & Label
+                    </li>
+
+                    <li>
+                        <span><i class="fas fa-id-card"></i> Cetak Kartu Nama</span>
+                        <span class="item-price">Rp 25.000</span>
+                    </li>
+                </ul>
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn-wa">Pesan Paket Branding</a>
+            </div>
+
+            <div class="card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #0f172a 0%, #020617 100%);">
+                <h3 style="color: var(--gold);"><i class="fas fa-info-circle"></i> Ketentuan Revisi & Jenis Pengiriman File</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem;">SISTEM REVISI</h4>
+                        <p style="font-size:0.85rem; color:var(--text-gray); margin-bottom:5px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:8px;"></i> <strong>Paket Satuan / Basic:</strong> 1x Revisi Gratis</p>
+                        <p style="font-size:0.85rem; color:var(--text-gray); margin-bottom:5px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:8px;"></i> <strong>Paket Bundling / Standard:</strong> 2x Revisi Gratis</p>
+                        <p style="font-size:0.85rem; color:var(--text-gray);"><i class="fas fa-exclamation-triangle" style="color:#ef4444; margin-right:8px;"></i> <strong>Revisi Tambahan:</strong> Rp 5.000 – Rp 15.000 <small>(Tergantung tingkat kerumitan)</small></p>
+                    </div>
+                    <div>
+                        <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem;">FILE HASIL AKHIR (PENGIRIMAN)</h4>
+                        <p style="font-size:0.85rem; color:var(--text-gray); margin-bottom:5px;"><i class="fas fa-file-image" style="color:var(--gold); margin-right:8px;"></i> <strong>Format JPG / PNG HD:</strong> Gratis Tanpa Biaya</p>
+                        <p style="font-size:0.85rem; color:var(--text-gray);"><i class="fas fa-file-pdf" style="color:var(--gold); margin-right:8px;"></i> <strong>Format PDF Siap Cetak:</strong> Gratis Tanpa Biaya</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="contact-message">
+        <p>
+            Jika ada pertanyaan, silakan hubungi kami melalui <strong>WhatsApp</strong> atau <strong>Instagram</strong>. <br>
+            Admin akan segera membalas pesan Anda. <br><br>
+            Terima kasih telah berkunjung di <strong>Vantage Studio</strong>.
+        </p>
+    </div>
+
+    <footer>
+        © 2026 VANTAGE STUDIO. All Rights Reserved.
+    </footer>
+</div>
+
+<script>
+    // Sistem Manajemen Pengalihan Tab Kategori Menu
+    function showCategory(categoryId, element) {
+        document.querySelectorAll('.price-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(categoryId).classList.add('active');
+        element.classList.add('active');
+        
+        window.scrollTo({ top: 140, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
