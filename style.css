@@ -1,0 +1,190 @@
+/* =========================================
+   6. NAVBAR (MODERN STICKY)
+   ========================================= */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    background: rgba(15, 23, 42, 0.8); /* Deep Blue Transparan */
+    backdrop-filter: blur(10px); /* Efek kaca */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fbbf24;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #fbbf24;
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* Sembunyikan di HP, bisa ganti ke hamburger menu nanti */
+}
+
+/* =========================================
+   7. REFINED CARD CONTENT (PORTFOLIO/SERVICE)
+   ========================================= */
+.p-content {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.p-content h3 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.p-content p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover, .portfolio-card:hover {
+    border-color: #fbbf24;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
+   8. WORKFLOW / STEPS SECTION
+   ========================================= */
+.step-item {
+    text-align: center;
+    padding: 1rem;
+}
+
+.step-item i {
+    font-size: 2.5rem;
+    color: #fbbf24;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.step-item h4 {
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   9. TESTIMONIALS (REVIEW)
+   ========================================= */
+.review-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #1e293b;
+}
+
+.stars {
+    color: #fbbf24;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+}
+
+.review-text {
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.reviewer {
+    font-weight: 600;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewer span {
+    font-size: 0.75rem;
+    color: #fbbf24;
+    font-weight: 400;
+}
+
+/* =========================================
+   10. CALL TO ACTION (CTA) BANNER
+   ========================================= */
+.cta-banner {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    padding: 4rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    margin: 2rem 0;
+}
+
+.cta-banner h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+/* =========================================
+   11. PARTNER LOGOS
+   ========================================= */
+.partner-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0.6;
+    filter: grayscale(1);
+    transition: 0.3s;
+}
+
+.partner-row:hover {
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+.btn-partner {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #1e293b;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================================
+   12. ANIMATIONS
+   ========================================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Hover effect untuk gambar di portfolio */
+.p-image img {
+    transition: transform 0.5s ease;
+}
+
+.portfolio-card:hover .p-image img {
+    transform: scale(1.1);
+}

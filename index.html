@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Vantage Studio | Professional Visual Stories</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. RESET & CORE STYLES
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        html, body { max-width: 100%; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: #0b1120; color: #94a3b8; line-height: 1.7; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        /* =========================================
+           2. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { font-size: 1.4rem; font-weight: 700; color: #fbbf24; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: #cbd5e1; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a:hover { color: #fbbf24; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+
+        /* =========================================
+           3. HERO WITH VIDEO BACKGROUND
+           ========================================= */
+        header {
+            position: relative; height: 100vh; display: flex;
+            align-items: center; justify-content: center; overflow: hidden;
+            color: white; text-align: center; padding: 0 1rem;
+        }
+        .video-bg {
+            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -2; transform: translate(-50%, -50%);
+            object-fit: cover; object-position: center 20%; 
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3) 0%, rgba(11, 17, 32, 0.9) 100%);
+            z-index: -1;
+        }
+        .hero-content { position: relative; z-index: 1; margin-top: 60px; }
+        .profile-img {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 3px solid #fbbf24; margin-bottom: 1.5rem;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+        }
+        .hero-title { font-size: clamp(2.2rem, 8vw, 3.8rem); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        .hero-subtitle { font-size: clamp(0.9rem, 4vw, 1.1rem); color: #e2e8f0; margin-bottom: 2.5rem; max-width: 650px; }
+
+        /* =========================================
+           4. FLOATING ACTION BUTTONS (STACKED FAB)
+           ========================================= */
+        .btn { padding: 14px 30px; border-radius: 50px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-gold { background: #fbbf24; color: #0f172a; }
+        .btn-gold:hover { background: #fff; transform: translateY(-3px); }
+        .btn-outline { border: 1px solid rgba(255, 255, 255, 0.4); color: white; }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        
+        section { padding: 5rem 0; background-color: #0b1120; position: relative; z-index: 5; }
+        .section-title { text-align: center; color: white; font-size: 2rem; margin-bottom: 3rem; letter-spacing: 1px; }
+
+        /* Posisi 1: WA */
+        .fab-whatsapp {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: #25d366; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; transition: 0.3s ease;
+        }
+        .fab-whatsapp:hover { transform: scale(1.1) translateY(-5px); }
+
+        /* Posisi 2: Robot AI */
+        .fab-ai {
+            position: fixed; bottom: 105px; right: 30px; width: 60px; height: 60px;
+            background: #fbbf24; color: #0f172a; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4); z-index: 9999; cursor: pointer; transition: 0.3s ease;
+        }
+        .fab-ai:hover { transform: scale(1.1) translateY(-5px); background: #fff; }
+
+        /* Posisi 3: Logo VS */
+        .fab-vs {
+            position: fixed; bottom: 180px; right: 30px; width: 60px; height: 60px;
+            background: #020617; color: #fbbf24; border: 2px solid #fbbf24; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+            font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            z-index: 9999; transition: 0.3s ease;
+        }
+        .fab-vs:hover { transform: scale(1.1) translateY(-5px); background: #fbbf24; color: #0f172a; }
+
+        /* Jendela Popup Chatbot Window */
+        .ai-chat-window {
+            position: fixed; bottom: 255px; right: 30px; width: 360px; max-width: 90vw;
+            background: #111827; border: 1px solid #334155; border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; 
+            display: flex; flex-direction: column; overflow: hidden;
+            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s ease;
+        }
+        .ai-chat-window.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .ai-chat-header {
+            background: #0f172a; padding: 1.2rem; border-bottom: 1px solid #223147;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .ai-chat-header h3 { color: #fbbf24; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .ai-chat-header .close-btn { color: #94a3b8; cursor: pointer; font-size: 1.1rem; }
+        .ai-chat-header .close-btn:hover { color: #f43f5e; }
+
+        .ai-chat-body { padding: 1.2rem; max-height: 250px; overflow-y: auto; font-size: 0.9rem; color: #cbd5e1; }
+        .ai-chat-body p { margin-bottom: 0.8rem; }
+        .ai-chat-body strong { color: #fbbf24; }
+
+        .ai-chat-footer { padding: 1rem; background: #0f172a; border-top: 1px solid #223147; }
+        .ai-chat-footer input {
+            width: 100%; padding: 0.75rem 1rem; border-radius: 0.8rem; border: 1px solid #334155;
+            background: #0b1120; color: white; font-size: 0.85rem; margin-bottom: 0.5rem;
+        }
+        .ai-chat-footer input:focus { outline: none; border-color: #fbbf24; }
+        .ai-chat-footer button {
+            width: 100%; background: #fbbf24; color: #0f172a; border: none; padding: 0.7rem;
+            border-radius: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .ai-chat-footer button:hover { background: white; }
+
+        /* =========================================
+           5. CARDS GRID (LAYANAN)
+           ========================================= */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+        .card { background: #020617; border-radius: 1.5rem; overflow: hidden; border: 1px solid #1e293b; transition: 0.4s; }
+        .card:hover { border-color: #fbbf24; transform: translateY(-10px); }
+        .card-img { height: 240px; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .card:hover .card-img img { transform: scale(1.1); }
+        .card-body { padding: 1.5rem; }
+        .card-body h3 { color: white; margin-bottom: 0.8rem; font-size: 1.2rem; }
+
+        /* =========================================
+           6. AI CARD, SEJARAH & TIM PROFILE LAYOUT
+           ========================================= */
+        .ai-card {
+            background: #111827; border: 1px solid #334155; border-radius: 1.5rem;
+            padding: 2.5rem; text-align: left; max-width: 900px; margin: 0 auto 3rem;
+        }
+        .ai-card h3 { color: #fbbf24; margin-bottom: 1.2rem; }
+        .ai-card p { color: #cbd5e1; margin-bottom: 1.25rem; }
+        .ai-input-static {
+            width: 100%; padding: 1rem 1.2rem; border-radius: 1rem;
+            border: 1px solid #334155; background: #0f172a; color: #e2e8f0; margin-bottom: 1.2rem;
+        }
+        .ai-input-static:focus { outline: none; border-color: #fbbf24; box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.12); }
+        .ai-button {
+            display: inline-flex; align-items: center; gap: 0.8rem; background: #fbbf24;
+            color: #0f172a; padding: 0.95rem 1.25rem; border-radius: 999px; border: none;
+            cursor: pointer; font-weight: 700; transition: 0.3s;
+        }
+        .ai-button:hover { background: #fff; }
+        .ai-response-static {
+            display: none; margin-top: 1.5rem; background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 1.5rem; color: #e2e8f0;
+        }
+        .ai-response-static.active { display: block; }
+        .ai-response-static strong { color: #fbbf24; }
+
+        .history-block {
+            background: #020617; border: 1px solid #1e293b; border-radius: 1.5rem;
+            padding: 2.5rem; margin-bottom: 3.5rem; text-align: center;
+        }
+        .history-block h3 { color: #fbbf24; font-size: 1.5rem; margin-bottom: 1rem; }
+        .history-block p { color: #cbd5e1; max-width: 850px; margin: 0 auto 1.5rem; font-size: 0.95rem; }
+        .location-badge {
+            display: inline-flex; align-items: center; gap: 8px; background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24; padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+        }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .team-card {
+            background: #111827; border: 1px solid #1e293b; border-radius: 1.5rem;
+            padding: 2.5rem 1.5rem; text-align: center; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .team-card:hover { border-color: #fbbf24; transform: translateY(-5px); }
+        
+        .team-icon {
+            width: 75px; height: 75px; background: #0f172a; border: 2px solid #334155;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.2rem; overflow: hidden; transition: 0.3s; padding: 4px;
+        }
+        .team-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+        .team-card:hover .team-icon { border-color: #fbbf24; background: #fbbf24; }
+        
+        .team-card h4 { color: white; font-size: 1.1rem; margin-bottom: 0.2rem; font-weight: 600; }
+        .team-card .role { color: #fbbf24; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 0.8rem; }
+        .team-card .edu { color: #cbd5e1; font-size: 0.8rem; font-style: italic; margin-bottom: 0.5rem; }
+        .team-card .details { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin-top: 5px; text-align: center; }
+        .owner-card { border: 2px solid #fbbf24; background: linear-gradient(145deg, #111827, #020617); }
+
+        /* =========================================
+           7. PARTNERS & FOOTER
+           ========================================= */
+        section#partners { padding: 3.5rem 0; background: #020617; text-align: center; border-top: 1px solid #1e293b; }
+        .partner-btn { padding: 12px 25px; background: #0b1120; border: 1px solid #1e293b; color: #94a3b8; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px; }
+        .partner-btn:hover { border-color: #fbbf24; color: white; }
+        footer { background: #020617; padding: 4rem 5% 2rem; border-top: 1px solid #1e293b; text-align: center; }
+        .footer-logo { font-size: 1.6rem; font-weight: 700; color: #fbbf24; margin-bottom: 1rem; letter-spacing: 3px; }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="fab-whatsapp" title="Hubungi Kami via WA">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="fab-ai" onclick="toggleAIChat()" title="Tanya AI Vantage">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <a href="#about" class="fab-vs" title="Lihat Sejarah & Tim Vantage">
+        VS
+    </a>
+
+    <div id="aiChatWindow" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <h3><i class="fas fa-robot"></i> AI Vantage Studio</h3>
+            <span class="close-btn" onclick="toggleAIChat()"><i class="fas fa-times"></i></span>
+        </div>
+        <div id="aiChatBody" class="ai-chat-body">
+            <p><strong>AI:</strong> Halo! Ada yang bisa saya bantu mengenai info harga atau kualifikasi profesional tim Vantage Studio? Silakan ketik pertanyaan Anda (Contoh: <em>"harga wedding"</em>).</p>
+        </div>
+        <div class="ai-chat-footer">
+            <input id="aiInput" type="text" placeholder="Ketik pertanyaan..." onkeypress="handleKeyPress(event)" />
+            <button type="button" onclick="handleAIChat()">
+                Kirim <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-logo">VANTAGE</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Layanan</a>
+            <a href="#about">Sejarah Kami</a>
+            <a href="pricelist.html">Pricelist</a>
+        </div>
+        <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn btn-gold" style="padding: 8px 20px; font-size: 0.85rem;">Booking Now</a>
+    </nav>
+
+    <header id="home">
+        <video autoplay muted loop playsinline class="video-bg">
+            <source src="foto_tasmiyah+akad/video/video1.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <img src="logo/logo.png" alt="Vantage Studio" class="profile-img">
+            <h1 class="hero-title">Vantage Studio</h1>
+            <p class="hero-subtitle">Capture Every Detail, Emotion, and Artistic Touch. Abadikan momen terbaik Anda dengan kualitas visual premium.</p>
+            <div style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://wa.me/message/CZFQUUMIU6DDI1" target="_blank" class="btn btn-gold"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+                <a href="pricelist.html" class="btn btn-outline">Daftar Harga</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="container">
+        <h2 class="section-title">Layanan Profesional</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img"><img src="foto_wisuda/foto_wisuda2.jpg" alt="Graduation"></div>
+                <div class="card-body"><h3>Graduation</h3><p>Kenangan kelulusan yang artistik untuk pencapaian terbaik Anda.</p></div>
+            </div>
+            <div class="card">
+                <div class="card-img"><img src="foto_wedding/foto_wedding.jpeg" alt="Wedding"></div>
+                <div class="card-body"><h3>Wedding</h3><p>Merekam setiap detak emosi dalam hari paling bahagia Anda.</p></div>
+            </div>
+            <div class="card">
+                <div class="card-img"><img src="foto_wedding/foto_studio/foto_studio.jpeg" alt="Studio"></div>
+                <div class="card-body"><h3>Studio</h3><p>Visual studio profesional untuk portrait, produk, dan branding yang premium.</p></div>
+            </div>
+            <div class="card">
+                <div class="card-img"><img src="foto_ulang_tahun/foto_ulang_tahun4.jpg" alt="Birthday"></div>
+                <div class="card-body"><h3>Birthday & Events</h3><p>Dokumentasi acara yang ceria dan penuh makna.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; scroll-margin-top: 90px;">
+        <h2 class="section-title">Sejarah Vantage Studio</h2>
+        
+        <div class="ai-card">
+            <h3>AI Sejarah Vantage Studio</h3>
+            <p>Ingin tahu lebih banyak tentang kompetensi bersertifikat kami? Masukkan pertanyaan Anda di sini. Contoh: <em>"siapa pemilik vantage studio?"</em>.</p>
+            <input id="aiInputStatic" class="ai-input-static" type="text" placeholder="Tanya prestasi tim atau profil..." onkeypress="handleStaticKeyPress(event)" />
+            <button type="button" class="ai-button" onclick="handleAIChatStatic()">
+                <i class="fas fa-history"></i> Tanyakan Sejarah
+            </button>
+            <div id="aiResponseStatic" class="ai-response-static"></div>
+        </div>
+
+        <div class="history-block">
+            <h3>Diciptakan untuk Mengabadikan Karya</h3>
+            <p>Didirikan pada tahun 2026, Vantage Studio lahir dari visi kolektif untuk menghadirkan standar baru dalam dunia dokumentasi dan industri kreatif. Didukung oleh para kreator ahli bersertifikat profesi, kami memastikan setiap detail visual Anda dieksekusi secara premium dan legalitas kompetensi yang teruji.</p>
+            <div class="location-badge">
+                <i class="fas fa-map-marker-alt"></i> Jln M. Riffadin, Perumahan Bumi Rindang Luhur (Pas Depan Kampus Melati), Samarinda Seberang
+            </div>
+        </div>
+
+        <h3 style="color: white; text-align: center; font-size: 1.4rem; margin-bottom: 2rem; font-weight: 600; letter-spacing: 1px;">Kreator di Balik Layar</h3>
+        <div class="team-grid">
+            <div class="team-card owner-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Sakti Akbar R. E.</h4>
+                <div class="role">Founder & Owner</div>
+                <div class="edu">Vantage Studio Founder</div>
+                <div class="details">Kreator visioner dengan segudang prestasi kompetisi kreatif. Memegang sertifikasi keahlian tata kelola manajemen produksi visual berstandar tinggi.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Natalia</h4>
+                <div class="role">Photographer</div>
+                <div class="edu">Politeknik Pertanian Negeri Samarinda</div>
+                <div class="details">Ahli dalam menangkap emosi, pencahayaan, dan komposisi artistik. Memiliki sertifikat kompetensi keahlian fotografi profesional.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Irsyad</h4>
+                <div class="role">Videographer</div>
+                <div class="edu">Politeknik Pertanian Negeri Samarinda</div>
+                <div class="details">Sineas berbakat spesialis pergerakan kamera sinematik dan penyuntingan dinamis. Memegang lisensi keahlian videografi resmi.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Syahadat</h4>
+                <div class="role">Graphic Designer</div>
+                <div class="edu">Vantage Studio Specialist</div>
+                <div class="details">Pilar utama perancang identitas visual, estetika aset, dan tata letak promosi. Bersertifikat resmi di bidang Desain Grafis Profesional.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Fahrido</h4>
+                <div class="role">Content Creator</div>
+                <div class="edu">Politeknik Pertanian Negeri Samarinda</div>
+                <div class="details">Konseptor kreatif di balik strategi pemasaran visual, copywriter, dan tren konten viral. Memiliki sertifikat keahlian digital marketing.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-icon"><img src="logo/logo.png" alt="VS"></div>
+                <h4>Mariana</h4>
+                <div class="role">Administration</div>
+                <div class="edu">Guru Pendidik di SMKN 8 Samarinda</div>
+                <div class="details">Manajer operasional, penjadwalan, dan layanan klien. Latar belakangnya sebagai guru memastikan pelayanan admin terstruktur, ramah, dan profesional.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners">
+        <div class="container">
+            <p style="letter-spacing: 4px; margin-bottom: 2rem; font-size: 0.8rem; color: #fbbf24; font-weight: 600;">OFFICIAL PARTNERS</p>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem;">
+                <a href="https://www.instagram.com/zhaftion_?" target="_blank" class="partner-btn"><i class="fab fa-instagram"></i> Zhaftion</a>
+                <a href="https://www.instagram.com/impro.in" target="_blank" class="partner-btn"><i class="fab fa-instagram"></i> Imaginative</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">VANTAGE STUDIO</div>
+        <p style="margin-bottom: 1.5rem; font-size: 0.9rem;">Samarinda Seberang, Kalimantan Timur.</p>
+        <div style="margin-bottom: 2.5rem;">
+            <a href="https://www.instagram.com/vantage.studio_" style="color: white; margin: 0 15px;"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="https://wa.me/message/CZFQUUMIU6DDI1" style="color: white; margin: 0 15px;"><i class="fab fa-whatsapp fa-lg"></i></a>
+        </div>
+        <p style="font-size: 0.75rem; color: #334155;">© 2026 Vantage Studio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleAIChat() {
+            var chatWindow = document.getElementById('aiChatWindow');
+            chatWindow.classList.toggle('active');
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') { handleAIChat(); }
+        }
+
+        function handleStaticKeyPress(event) {
+            if (event.key === 'Enter') { handleAIChatStatic(); }
+        }
+
+        // 1. CHAT UTAMA: FAB Robot Melayang
+        function handleAIChat() {
+            var inputElement = document.getElementById('aiInput');
+            var input = inputElement.value.trim().toLowerCase();
+            var chatBody = document.getElementById('aiChatBody');
+            var answer = '';
+
+            if (!input) return;
+
+            chatBody.innerHTML += `<p style="text-align:right;"><strong>Anda:</strong> ${inputElement.value}</p>`;
+
+            if (input.includes('vs') || input.includes('sejarah') || input.includes('history') || input.includes('tim') || input.includes('team') || input.includes('owner') || input.includes('pendiri') || input.includes('lokasi') || input.includes('alamat') || input.includes('kuliah') || input.includes('prestasi') || input.includes('sertifikat')) {
+                answer = '<strong>Vantage Studio</strong> didirikan pada tahun 2026 di Jln M. Riffadin, Bumi Rindang Luhur (Pas depan Kampus Melati). Setiap anggota tim memiliki sertifikat keahlian resmi di bidangnya. Dipimpin oleh <strong>Sakti Akbar R.E.</strong> selaku Owner & Founder, didukung <strong>Natalia</strong>, <strong>Irsyad</strong>, dan <strong>Fahrido</strong> (Politeknik Pertanian Negeri Samarinda), <strong>Syahadat</strong> selaku Desainer Grafis bersertifikat, serta <strong>Mariana</strong> (Admin) yang merupakan Guru Aktif di SMKN 8 Samarinda.';
+            } else if (input.includes('wedding') || input.includes('nikah') || input.includes('akad') || input.includes('resepsi')) {
+                answer = 'Harga sesuai pricelist: Foto Wedding Rp 350.000 per jam. Paket 1 Rol Rp 850.000, Paket 2 Rol Rp 1.700.000, dan Video Cinematic Wedding Rp 850.000.';
+            } else if (input.includes('studio') && !input.includes('wisuda')) {
+                answer = 'Harga sesuai pricelist: Foto Studio mulai Rp 300.000 per jam dengan file mentah + 10 edit.';
+            } else if (input.includes('wisuda') || input.includes('graduation')) {
+                answer = 'Harga sesuai pricelist: Foto Wisuda Rp 350.000, dan Video Wisuda Cinematic Rp 400.000.';
+            } else if (input.includes('birthday') || input.includes('ulang tahun')) {
+                answer = 'Harga sesuai pricelist: Foto Ulang Tahun Rp 550.000. Tersedia juga paket Event/Birthday.';
+            } else if (input.includes('harga') || input.includes('berapa') || input.includes('paket')) {
+                answer = 'Harga resmi: Foto Wedding Rp 350k/jam, Foto Studio Rp 300k/jam, Foto Wisuda Rp 350k, Video Wisuda Rp 400k, Foto Ultah Rp 550k.';
+            } else {
+                answer = 'Maaf, saya kurang mengerti. Coba tanyakan spesifik seperti "foto studio", "paket wedding", atau "sejarah sertifikat tim VS".';
+            }
+
+            setTimeout(() => {
+                chatBody.innerHTML += `<p><strong>AI:</strong> ${answer}</p>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 400);
+
+            inputElement.value = '';
+        }
+
+        // 2. CHAT KEDUA: Khusus AI Sejarah (Box Tengah Halaman) - FIX DETIL SETIAP ANGGOTA TIM
+        function handleAIChatStatic() {
+            var inputElement = document.getElementById('aiInputStatic');
+            var input = inputElement.value.trim().toLowerCase();
+            var responseBox = document.getElementById('aiResponseStatic');
+            var answer = '';
+
+            if (!input) {
+                responseBox.innerHTML = '<p>Silakan tulis pertanyaan Anda mengenai profil sejarah atau anggota tim kami.</p>';
+                responseBox.classList.add('active');
+                return;
+            }
+
+            // Validasi Penjawab Profil Dinamis Nama Anggota Tim
+            if (input.includes('owner') || input.includes('pemilik') || input.includes('sakti') || input.includes('pendiri')) {
+                answer = 'Vantage Studio dimiliki oleh <strong>Sakti Akbar Rahmatullah Erdin</strong> selaku Founder & Owner utama yang memimpin tata kelola manajemen dan produksi visual.';
+            } else if (input.includes('irsyad')) {
+                answer = '<strong>Irsyad</strong> adalah Videographer di Vantage Studio. Beliau berkuliah di Politeknik Pertanian Negeri Samarinda, memiliki keahlian spesifik di bidang sinematik serta editing video, dan telah memegang sertifikasi keahlian videografi resmi.';
+            } else if (input.includes('natalia')) {
+                answer = '<strong>Natalia</strong> adalah Photographer resmi Vantage Studio. Beliau menempuh pendidikan di Politeknik Pertanian Negeri Samarinda, memiliki skill tinggi dalam komposisi pencahayaan serta artistik foto, dan telah memiliki sertifikat kompetensi fotografi profesional.';
+            } else if (input.includes('syahadat') || input.includes('desain') || input.includes('designer')) {
+                answer = '<strong>Syahadat</strong> bertindak sebagai Graphic Designer internal Vantage Studio. Beliau fokus pada perancangan aset estetika, identitas visual brand, dan telah lulus uji kompetensi dengan memegang <strong>Sertifikat Desain Grafis Profesional</strong>.';
+            } else if (input.includes('fahrido') || input.includes('konten')) {
+                answer = '<strong>Fahrido</strong> adalah Content Creator di Vantage Studio. Beliau berkuliah di Politeknik Pertanian Negeri Samarinda, ahli dalam merancang strategi konsep kreatif, copywriter, serta tren konten digital, dan memegang sertifikat keahlian resmi di bidangnya.';
+            } else if (input.includes('mariana') || input.includes('maria') || input.includes('guru') || input.includes('admin')) {
+                answer = 'Bagian operasional, penjadwalan, dan layanan klien dikelola oleh <strong>Mariana</strong> (Administration). Beliau merupakan seorang Guru Profesional aktif di <strong>SMKN 8 Samarinda</strong> yang memastikan administrasi terstruktur secara ramah dan profesional.';
+            } else if (input.includes('kuliah') || input.includes('kampus') || input.includes('politani') || input.includes('politeknik')) {
+                answer = 'Kreator ahli kami seperti Irsyad, Natalia, dan Fahrido menempuh latar belakang akademis profesional di kampus <strong>Politeknik Pertanian Negeri Samarinda</strong>.';
+            } else if (input.includes('skil') || input.includes('skill') || input.includes('sertifikat') || input.includes('lisensi')) {
+                answer = 'Seluruh anggota tim Vantage Studio memiliki skill terspesialisasi di bidangnya masing-masing (Foto, Video, Desain, Konten, Admin) dan <strong>masing-masing personil telah memiliki sertifikat kompetensi resmi</strong> guna menjamin kualitas kerja nyata.';
+            } else if (input.includes('alamat') || input.includes('lokasi') || input.includes('melati')) {
+                answer = 'Kantor operasional resmi kami berada di <strong>Jln M. Riffadin, Perumahan Bumi Rindang Luhur (Tepat pas di depan Kampus Melati)</strong>, Samarinda Seberang.';
+            } else {
+                answer = 'Vantage Studio didirikan oleh Sakti Akbar Rahmatullah Erdin (Owner) bersama tim ahli bersertifikat: Natalia (Foto - Politani), Irsyad (Video - Politani), Syahadat (Desain - Bersertifikat), Fahrido (Konten - Politani), dan Mariana (Admin - Guru SMKN 8 Samarinda).';
+            }
+
+            responseBox.innerHTML = '<p><strong>AI Sejarah</strong> menjawab:</p><p>' + answer + '</p>';
+            responseBox.classList.add('active');
+            inputElement.value = '';
+        }
+    </script>
+</body>
+</html>
